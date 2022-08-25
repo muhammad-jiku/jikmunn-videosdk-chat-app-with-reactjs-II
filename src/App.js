@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import BoxApp from './BoxApp';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* <Routes> */}
+      {/* <Route path="http://localhost:3000/rtc-js-prebuilt/0.3.10/?meetingId=demo&webcamEnabled=true&micEnabled=true&name=jiku&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI2NjEzZjhmMS1iY2Y3LTRkNTEtYTA0Yi1lYmU2NWY5NTJhOGYiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTY2MTQxMzQzMiwiZXhwIjoxNjYyMDE4MjMyfQ.vccrcMw2Jde_nzDc3ESx3U_GUrneuZBQDCr9_JmXzrY" />
+       */}
+      {/* <Route
+          path="http://localhost:3000/rtc-js-prebuilt/0.3.10/?meetingId=demo&webcamEnabled=true&micEnabled=true&name=jiku&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI2NjEzZjhmMS1iY2Y3LTRkNTEtYTA0Yi1lYmU2NWY5NTJhOGYiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTY2MTQxMzQzMiwiZXhwIjoxNjYyMDE4MjMyfQ.vccrcMw2Jde_nzDc3ESx3U_GUrneuZBQDCr9_JmXzrY"
+          element={<BoxApp />}
+        /> */}
+      {/* </Routes> */}
+      <BoxApp />
     </div>
   );
 }
