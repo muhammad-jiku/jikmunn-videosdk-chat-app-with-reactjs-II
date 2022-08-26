@@ -26,7 +26,7 @@ import useIsTab from './utils/useIsTab';
 // import { version as prebuiltSDKVersion } from '../package.json';
 import { meetingModes } from './CONSTS';
 
-const BoxApp = () => {
+const SubApp = () => {
   const [meetingIdValidation, setMeetingIdValidation] = useState({
     isLoading: true,
     meetingId: null,
@@ -60,8 +60,8 @@ const BoxApp = () => {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI2NjEzZjhmMS1iY2Y3LTRkNTEtYTA0Yi1lYmU2NWY5NTJhOGYiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTY2MTQxMzQzMiwiZXhwIjoxNjYyMDE4MjMyfQ.vccrcMw2Jde_nzDc3ESx3U_GUrneuZBQDCr9_JmXzrY',
       micEnabled: 'micEnabled',
       webcamEnabled: 'webcamEnabled',
-      name: 'jiku',
-      meetingId: 'demo',
+      name: 'username',
+      meetingId: 'breezeTimeConferenceRoom',
       redirectOnLeave: 'redirectOnLeave',
       chatEnabled: 'chatEnabled',
       screenShareEnabled: 'screenShareEnabled',
@@ -727,4 +727,4 @@ const BoxApp = () => {
   );
 };
 
-export default BoxApp;
+export default SubApp;

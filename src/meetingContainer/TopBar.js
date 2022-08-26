@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
   IconButton,
   Box,
@@ -11,21 +11,21 @@ import {
   Link,
   SwipeableDrawer,
   Grid,
-} from "@material-ui/core";
-import OutlineIconButton from "../components/OutlineIconButton";
-import { Constants, useMeeting, usePubSub } from "@videosdk.live/react-sdk";
-import { sideBarModes, useMeetingAppContext } from "../MeetingAppContextDef";
-import useIsTab from "../utils/useIsTab";
-import useIsMobile from "../utils/useIsMobile";
-import recordingBlink from "../animations/recording-blink.json";
-import liveBlink from "../animations/live-blink.json";
-import liveHLS from "../animations/live-hls.json";
-import stoppingHLS from "../animations/hls_stop_blink.json";
-import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
-import LiveIcon from "../icons/LiveIcon";
-import RaiseHand from "../icons/RaiseHand";
+} from '@material-ui/core';
+import OutlineIconButton from '../components/OutlineIconButton';
+import { Constants, useMeeting, usePubSub } from '@videosdk.live/react-sdk';
+import { sideBarModes, useMeetingAppContext } from '../MeetingAppContextDef';
+import useIsTab from '../utils/useIsTab';
+import useIsMobile from '../utils/useIsMobile';
+import recordingBlink from '../animations/recording-blink.json';
+import liveBlink from '../animations/live-blink.json';
+import liveHLS from '../animations/live-hls.json';
+import stoppingHLS from '../animations/hls_stop_blink.json';
+import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
+import LiveIcon from '../icons/LiveIcon';
+import RaiseHand from '../icons/RaiseHand';
 import {
-  Activities,
+  // Activities,
   Chat,
   EndCall,
   Participants,
@@ -33,7 +33,7 @@ import {
   ScreenShare,
   LeaveMeetingIcon,
   EndCallIcon,
-} from "../icons";
+} from '../icons';
 
 import {
   MicOff as MicOffIcon,
@@ -43,43 +43,43 @@ import {
   MoreHoriz as MoreHorizIcon,
   ArrowDropDown as ArrowDropDownIcon,
   Gesture,
-} from "@material-ui/icons";
+} from '@material-ui/icons';
 
 import {
   isMobile as RDDIsMobile,
   isTablet as RDDIsTablet,
-} from "react-device-detect";
-import ConfirmBox from "../components/ConfirmBox";
-import OutlineIconTextButton from "../components/OutlineIconTextButton";
-import MobileIconButton from "../components/MobileIconButton";
-import AddLiveStreamIcon from "../icons/AddLiveStreamIcon";
-import useIsLivestreaming from "./useIsLivestreaming";
-import useIsRecording from "./useIsRecording";
-import useIsHls from "./useIsHls";
-import { meetingModes } from "../CONSTS";
+} from 'react-device-detect';
+import ConfirmBox from '../components/ConfirmBox';
+import OutlineIconTextButton from '../components/OutlineIconTextButton';
+import MobileIconButton from '../components/MobileIconButton';
+import AddLiveStreamIcon from '../icons/AddLiveStreamIcon';
+import useIsLivestreaming from './useIsLivestreaming';
+import useIsRecording from './useIsRecording';
+import useIsHls from './useIsHls';
+import { meetingModes } from '../CONSTS';
 
 const useStyles = makeStyles({
-  row: { display: "flex", alignItems: "center" },
-  borderRight: { borderRight: "1ps solid #ffffff33" },
-  popover: { backgroundColor: "transparent" },
+  row: { display: 'flex', alignItems: 'center' },
+  borderRight: { borderRight: '1ps solid #ffffff33' },
+  popover: { backgroundColor: 'transparent' },
   popoverBorder: {
-    borderRadius: "12px",
-    backgroundColor: "#212032",
+    borderRadius: '12px',
+    backgroundColor: '#212032',
     marginTop: 8,
     width: 300,
   },
 });
 
 const RaiseHandBTN = ({ onClick, isMobile, isTab }) => {
-  const { publish } = usePubSub("RAISE_HAND");
+  const { publish } = usePubSub('RAISE_HAND');
 
   const onRaiseHand = () => {
     if (isMobile || isTab) {
       onClick();
-      typeof onClick === "function" && onClick();
-      publish("Raise Hand");
+      typeof onClick === 'function' && onClick();
+      publish('Raise Hand');
     } else {
-      publish("Raise Hand");
+      publish('Raise Hand');
     }
   };
 
@@ -87,16 +87,16 @@ const RaiseHandBTN = ({ onClick, isMobile, isTab }) => {
     <Tooltip>
       <MobileIconButton
         id="RaiseHandBTN"
-        tooltipTitle={"Raise hand"}
+        tooltipTitle={'Raise hand'}
         Icon={RaiseHand}
         onClick={onRaiseHand}
-        buttonText={"Raise Hand"}
+        buttonText={'Raise Hand'}
       />
     </Tooltip>
   ) : (
     <Tooltip>
       <OutlineIconButton
-        tooltipTitle={"Raise hand"}
+        tooltipTitle={'Raise hand'}
         Icon={RaiseHand}
         onClick={onRaiseHand}
       />
@@ -113,13 +113,13 @@ const ParticipantsBTN = ({ onClick, isMobile, isTab }) => {
 
   return isMobile || isTab ? (
     <MobileIconButton
-      tooltipTitle={"Participants"}
+      tooltipTitle={'Participants'}
       isFocused={sideBarMode === sideBarModes.PARTICIPANTS}
-      buttonText={"Participants"}
+      buttonText={'Participants'}
       Icon={Participants}
       disabled={meetingMode === meetingModes.VIEWER || !canToggleParticipantTab}
       onClick={() => {
-        typeof onClick === "function" && onClick();
+        typeof onClick === 'function' && onClick();
         setSideBarMode((s) =>
           s === sideBarModes.PARTICIPANTS ? null : sideBarModes.PARTICIPANTS
         );
@@ -128,12 +128,12 @@ const ParticipantsBTN = ({ onClick, isMobile, isTab }) => {
     />
   ) : (
     <OutlineIconButton
-      tooltipTitle={"Participants"}
+      tooltipTitle={'Participants'}
       isFocused={sideBarMode === sideBarModes.PARTICIPANTS}
       Icon={Participants}
       disabled={meetingMode === meetingModes.VIEWER || !canToggleParticipantTab}
       onClick={() => {
-        typeof onClick === "function" && onClick();
+        typeof onClick === 'function' && onClick();
         setSideBarMode((s) =>
           s === sideBarModes.PARTICIPANTS ? null : sideBarModes.PARTICIPANTS
         );
@@ -147,8 +147,8 @@ const ConfigBTN = ({ isMobile, isTab }) => {
 
   return isMobile || isTab ? (
     <MobileIconButton
-      tooltipTitle={"Configuration"}
-      buttonText={"Configuration"}
+      tooltipTitle={'Configuration'}
+      buttonText={'Configuration'}
       Icon={SettingsOutlinedIcon}
       isFocused={sideBarMode === sideBarModes.CONFIGURATION}
       onClick={() => {
@@ -159,7 +159,7 @@ const ConfigBTN = ({ isMobile, isTab }) => {
     />
   ) : (
     <OutlineIconButton
-      tooltipTitle={"Configuration"}
+      tooltipTitle={'Configuration'}
       Icon={SettingsOutlinedIcon}
       isFocused={sideBarMode === sideBarModes.CONFIGURATION}
       onClick={() => {
@@ -175,8 +175,8 @@ const ChatBTN = ({ isMobile, isTab }) => {
 
   return isMobile || isTab ? (
     <MobileIconButton
-      tooltipTitle={"Chat"}
-      buttonText={"Chat"}
+      tooltipTitle={'Chat'}
+      buttonText={'Chat'}
       Icon={Chat}
       isFocused={sideBarMode === sideBarModes.CHAT}
       onClick={() => {
@@ -187,7 +187,7 @@ const ChatBTN = ({ isMobile, isTab }) => {
     />
   ) : (
     <OutlineIconButton
-      tooltipTitle={"Chat"}
+      tooltipTitle={'Chat'}
       Icon={Chat}
       isFocused={sideBarMode === sideBarModes.CHAT}
       onClick={() => {
@@ -198,87 +198,89 @@ const ChatBTN = ({ isMobile, isTab }) => {
     />
   );
 };
-const ActivitiesBTN = ({ onClick, isMobile, isTab }) => {
-  const { sideBarMode, setSideBarMode, setSideBarNestedMode } =
-    useMeetingAppContext();
+// const ActivitiesBTN = ({ onClick, isMobile, isTab }) => {
+//   const { sideBarMode, setSideBarMode, setSideBarNestedMode } =
+//     useMeetingAppContext();
 
-  return isMobile || isTab ? (
-    <MobileIconButton
-      Icon={Activities}
-      tooltipTitle={"Activities"}
-      buttonText={"Activities"}
-      isFocused={sideBarMode === sideBarModes.ACTIVITIES}
-      onClick={() => {
-        typeof onClick === "function" && onClick();
+//   return isMobile || isTab ? (
+//     <MobileIconButton
+//       Icon={Activities}
+//       tooltipTitle={'Activities'}
+//       buttonText={'Activities'}
+//       isFocused={sideBarMode === sideBarModes.ACTIVITIES}
+//       onClick={() => {
+//         typeof onClick === 'function' && onClick();
 
-        setSideBarMode((s) =>
-          s === sideBarModes.ACTIVITIES ? null : sideBarModes.ACTIVITIES
-        );
+//         setSideBarMode((s) =>
+//           s === sideBarModes.ACTIVITIES ? null : sideBarModes.ACTIVITIES
+//         );
 
-        setSideBarNestedMode(null);
-      }}
-    />
-  ) : (
-    <OutlineIconButton
-      tooltipTitle={"Activities"}
-      Icon={Activities}
-      isFocused={sideBarMode === sideBarModes.ACTIVITIES}
-      onClick={() => {
-        typeof onClick === "function" && onClick();
+//         setSideBarNestedMode(null);
+//       }}
+//     />
+//   ) : (
+//     <OutlineIconButton
+//       tooltipTitle={'Activities'}
+//       Icon={Activities}
+//       isFocused={sideBarMode === sideBarModes.ACTIVITIES}
+//       onClick={() => {
+//         typeof onClick === 'function' && onClick();
 
-        setSideBarMode((s) =>
-          s === sideBarModes.ACTIVITIES ? null : sideBarModes.ACTIVITIES
-        );
+//         setSideBarMode((s) =>
+//           s === sideBarModes.ACTIVITIES ? null : sideBarModes.ACTIVITIES
+//         );
 
-        setSideBarNestedMode(null);
-      }}
-    />
-  );
-};
-const WhiteBoardBTN = ({ onClick, isMobile, isTab }) => {
-  const { whiteboardStarted, whiteboardEnabled, canToggleWhiteboard } =
-    useMeetingAppContext();
+//         setSideBarNestedMode(null);
+//       }}
+//     />
+//   );
+// };
 
-  const mMeeting = useMeeting({});
+// const WhiteBoardBTN = ({ onClick, isMobile, isTab }) => {
+//   const { whiteboardStarted, whiteboardEnabled, canToggleWhiteboard } =
+//     useMeetingAppContext();
 
-  const presenterId = mMeeting?.presenterId;
+//   const mMeeting = useMeeting({});
 
-  return (
-    <>
-      {whiteboardEnabled &&
-        (isMobile || isTab ? (
-          <MobileIconButton
-            disabled={presenterId || !canToggleWhiteboard}
-            tooltipTitle={"Whiteboard"}
-            buttonText={"Whiteboard"}
-            Icon={Gesture}
-            isFocused={whiteboardStarted}
-            onClick={() => {
-              typeof onClick === "function" && onClick();
+//   const presenterId = mMeeting?.presenterId;
 
-              whiteboardStarted
-                ? mMeeting.meeting.stopWhiteboard()
-                : mMeeting.meeting.startWhiteboard();
-            }}
-          />
-        ) : (
-          <OutlineIconButton
-            disabled={presenterId || !canToggleWhiteboard}
-            tooltipTitle={"Whiteboard"}
-            Icon={Gesture}
-            isFocused={whiteboardStarted}
-            onClick={() => {
-              typeof onClick === "function" && onClick();
+//   return (
+//     <>
+//       {whiteboardEnabled &&
+//         (isMobile || isTab ? (
+//           <MobileIconButton
+//             // disabled={presenterId || !canToggleWhiteboard}
+//             tooltipTitle={'Whiteboard'}
+//             buttonText={'Whiteboard'}
+//             Icon={Gesture}
+//             isFocused={whiteboardStarted}
+//             onClick={() => {
+//               typeof onClick === 'function' && onClick();
 
-              whiteboardStarted
-                ? mMeeting.meeting.stopWhiteboard()
-                : mMeeting.meeting.startWhiteboard();
-            }}
-          />
-        ))}
-    </>
-  );
-};
+//               whiteboardStarted
+//                 ? mMeeting.meeting.stopWhiteboard()
+//                 : mMeeting.meeting.startWhiteboard();
+//             }}
+//           />
+//         ) : (
+//           <OutlineIconButton
+//             // disabled={presenterId || !canToggleWhiteboard}
+//             tooltipTitle={'Whiteboard'}
+//             Icon={Gesture}
+//             isFocused={whiteboardStarted}
+//             onClick={() => {
+//               typeof onClick === 'function' && onClick();
+
+//               whiteboardStarted
+//                 ? mMeeting.meeting.stopWhiteboard()
+//                 : mMeeting.meeting.startWhiteboard();
+//             }}
+//           />
+//         ))}
+//     </>
+//   );
+// };
+
 const ScreenShareBTN = ({ onClick, isMobile, isTab }) => {
   const mMeeting = useMeeting({});
   const { whiteboardStarted } = useMeetingAppContext();
@@ -292,21 +294,21 @@ const ScreenShareBTN = ({ onClick, isMobile, isTab }) => {
       tooltipTitle={
         presenterId
           ? localScreenShareOn
-            ? "Stop Presenting"
+            ? 'Stop Presenting'
             : null
-          : "Present Screen"
+          : 'Present Screen'
       }
       buttonText={
         presenterId
           ? localScreenShareOn
-            ? "Stop Presenting"
+            ? 'Stop Presenting'
             : null
-          : "Present Screen"
+          : 'Present Screen'
       }
       isFocused={localScreenShareOn}
       Icon={ScreenShare}
       onClick={() => {
-        typeof onClick === "function" && onClick();
+        typeof onClick === 'function' && onClick();
         toggleScreenShare();
       }}
       disabled={
@@ -326,14 +328,14 @@ const ScreenShareBTN = ({ onClick, isMobile, isTab }) => {
       tooltipTitle={
         presenterId
           ? localScreenShareOn
-            ? "Stop Presenting"
+            ? 'Stop Presenting'
             : null
-          : "Present Screen"
+          : 'Present Screen'
       }
       isFocused={localScreenShareOn}
       Icon={ScreenShare}
       onClick={() => {
-        typeof onClick === "function" && onClick();
+        typeof onClick === 'function' && onClick();
         toggleScreenShare();
       }}
       disabled={
@@ -355,9 +357,9 @@ const AddLiveStreamBTN = ({ isMobile, isTab }) => {
 
   return isMobile || isTab ? (
     <MobileIconButton
-      tooltipTitle={"Add Live Streams"}
+      tooltipTitle={'Add Live Streams'}
       Icon={AddLiveStreamIcon}
-      buttonText={"Add Live Streams"}
+      buttonText={'Add Live Streams'}
       isFocused={sideBarMode === sideBarModes.ADD_LIVE_STREAM}
       onClick={() => {
         setSideBarMode((s) =>
@@ -369,7 +371,7 @@ const AddLiveStreamBTN = ({ isMobile, isTab }) => {
     />
   ) : (
     <OutlineIconTextButton
-      tooltipTitle={"Add Live Streams"}
+      tooltipTitle={'Add Live Streams'}
       buttonText="Add Live Streams"
       isFocused={sideBarMode === sideBarModes.ADD_LIVE_STREAM}
       onClick={() => {
@@ -442,7 +444,7 @@ const RecordingBTN = ({ isMobile, isTab }) => {
     autoplay: true,
     animationData: recordingBlink,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
     height: 64,
     width: 160,
@@ -474,28 +476,28 @@ const RecordingBTN = ({ isMobile, isTab }) => {
       onClick={_handleClick}
       tooltipTitle={
         recordingState === Constants.recordingEvents.RECORDING_STARTED
-          ? "Stop Recording"
+          ? 'Stop Recording'
           : recordingState === Constants.recordingEvents.RECORDING_STARTING
-          ? "Starting Recording"
+          ? 'Starting Recording'
           : recordingState === Constants.recordingEvents.RECORDING_STOPPED
-          ? "Start Recording"
+          ? 'Start Recording'
           : recordingState === Constants.recordingEvents.RECORDING_STOPPING
-          ? "Stopping Recording"
-          : "Start Recording"
+          ? 'Stopping Recording'
+          : 'Start Recording'
       }
       isFocused={isRecording}
       disabled={!participantCanToggleRecording}
       lottieOption={isRecording ? defaultOptions : null}
       buttonText={
         recordingState === Constants.recordingEvents.RECORDING_STARTED
-          ? "Stop Recording"
+          ? 'Stop Recording'
           : recordingState === Constants.recordingEvents.RECORDING_STARTING
-          ? "Starting Recording"
+          ? 'Starting Recording'
           : recordingState === Constants.recordingEvents.RECORDING_STOPPED
-          ? "Start Recording"
+          ? 'Start Recording'
           : recordingState === Constants.recordingEvents.RECORDING_STOPPING
-          ? "Stopping Recording"
-          : "Start Recording"
+          ? 'Stopping Recording'
+          : 'Start Recording'
       }
       isRequestProcessing={isRequestProcessing}
     />
@@ -505,14 +507,14 @@ const RecordingBTN = ({ isMobile, isTab }) => {
       onClick={_handleClick}
       tooltipTitle={
         recordingState === Constants.recordingEvents.RECORDING_STARTED
-          ? "Stop Recording"
+          ? 'Stop Recording'
           : recordingState === Constants.recordingEvents.RECORDING_STARTING
-          ? "Starting Recording"
+          ? 'Starting Recording'
           : recordingState === Constants.recordingEvents.RECORDING_STOPPED
-          ? "Start Recording"
+          ? 'Start Recording'
           : recordingState === Constants.recordingEvents.RECORDING_STOPPING
-          ? "Stopping Recording"
-          : "Start Recording"
+          ? 'Stopping Recording'
+          : 'Start Recording'
       }
       isFocused={isRecording}
       disabled={!participantCanToggleRecording}
@@ -588,7 +590,7 @@ const GoLiveBTN = ({ isMobile, isTab }) => {
     autoplay: true,
     animationData: liveBlink,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
     height: 64,
     width: 170,
@@ -622,36 +624,36 @@ const GoLiveBTN = ({ isMobile, isTab }) => {
     <>
       {isMobile || isTab ? (
         <MobileIconButton
-          bgColor={"#D32F2F"}
+          bgColor={'#D32F2F'}
           onClick={_handleClick}
           tooltipTitle={
             livestreamState === Constants.livestreamEvents.LIVESTREAM_STARTED
-              ? "Stop Live"
+              ? 'Stop Live'
               : livestreamState ===
                 Constants.livestreamEvents.LIVESTREAM_STARTING
-              ? "Starting Livestream"
+              ? 'Starting Livestream'
               : livestreamState ===
                 Constants.livestreamEvents.LIVESTREAM_STOPPED
-              ? "Go Live"
+              ? 'Go Live'
               : livestreamState ===
                 Constants.livestreamEvents.LIVESTREAM_STOPPING
-              ? "Stopping Livestream"
-              : "Go Live"
+              ? 'Stopping Livestream'
+              : 'Go Live'
           }
           Icon={LiveIcon}
           buttonText={
             livestreamState === Constants.livestreamEvents.LIVESTREAM_STARTED
-              ? "Stop Live"
+              ? 'Stop Live'
               : livestreamState ===
                 Constants.livestreamEvents.LIVESTREAM_STARTING
-              ? "Starting Livestream"
+              ? 'Starting Livestream'
               : livestreamState ===
                 Constants.livestreamEvents.LIVESTREAM_STOPPED
-              ? "Go Live"
+              ? 'Go Live'
               : livestreamState ===
                 Constants.livestreamEvents.LIVESTREAM_STOPPING
-              ? "Stopping Livestream"
-              : "Go Live"
+              ? 'Stopping Livestream'
+              : 'Go Live'
           }
           isFocused={isLiveStreaming}
           lottieOption={isLiveStreaming ? defaultOptions : null}
@@ -660,21 +662,21 @@ const GoLiveBTN = ({ isMobile, isTab }) => {
         />
       ) : (
         <OutlineIconTextButton
-          bgColor={"#D32F2F"}
+          bgColor={'#D32F2F'}
           onClick={_handleClick}
           tooltipTitle={
             livestreamState === Constants.livestreamEvents.LIVESTREAM_STARTED
-              ? "Stop Live"
+              ? 'Stop Live'
               : livestreamState ===
                 Constants.livestreamEvents.LIVESTREAM_STARTING
-              ? "Starting Livestream"
+              ? 'Starting Livestream'
               : livestreamState ===
                 Constants.livestreamEvents.LIVESTREAM_STOPPED
-              ? "Go Live"
+              ? 'Go Live'
               : livestreamState ===
                 Constants.livestreamEvents.LIVESTREAM_STOPPING
-              ? "Stopping Livestream"
-              : "Go Live"
+              ? 'Stopping Livestream'
+              : 'Go Live'
           }
           buttonText="Go Live"
           lottieOption={isLiveStreaming ? defaultOptions : null}
@@ -684,16 +686,16 @@ const GoLiveBTN = ({ isMobile, isTab }) => {
       )}
       <ConfirmBox
         open={isPopupShown}
-        title={"Add live stream configuration"}
+        title={'Add live stream configuration'}
         subTitle={
-          "Please add live stream configuration to start live streaming"
+          'Please add live stream configuration to start live streaming'
         }
-        successText={"Proceed"}
+        successText={'Proceed'}
         onSuccess={() => {
           setSideBarMode((s) => sideBarModes.ADD_LIVE_STREAM);
           setIsPopupShown(false);
         }}
-        rejectText={"Cancel"}
+        rejectText={'Cancel'}
         onReject={() => {
           setIsPopupShown(false);
         }}
@@ -747,7 +749,7 @@ const HlsBTN = ({ isMobile, isTab }) => {
     autoplay: true,
     animationData: liveHLS,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
     height: 64,
     width: 170,
@@ -758,7 +760,7 @@ const HlsBTN = ({ isMobile, isTab }) => {
     autoplay: true,
     animationData: stoppingHLS,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
     height: 64,
     width: 170,
@@ -790,11 +792,11 @@ const HlsBTN = ({ isMobile, isTab }) => {
     <MobileIconButton
       onClick={_handleClick}
       tooltipTitle={
-        isHls ? (isHlsStop ? "Stopping HLS" : "Stop HLS") : "Start HLS"
+        isHls ? (isHlsStop ? 'Stopping HLS' : 'Stop HLS') : 'Start HLS'
       }
       Icon={LiveIcon}
       buttonText={
-        isHls ? (isHlsStop ? "Stopping HLS" : "Stop HLS") : "Start HLS"
+        isHls ? (isHlsStop ? 'Stopping HLS' : 'Stop HLS') : 'Start HLS'
       }
       isFocused={isHls}
       lottieOption={isHls ? (isHlsStop ? null : defaultOptions) : null}
@@ -804,10 +806,10 @@ const HlsBTN = ({ isMobile, isTab }) => {
     <OutlineIconTextButton
       onClick={_handleClick}
       tooltipTitle={
-        isHls ? (isHlsStop ? "Stopping HLS" : "Stop HLS") : "Start HLS"
+        isHls ? (isHlsStop ? 'Stopping HLS' : 'Stop HLS') : 'Start HLS'
       }
       buttonText={
-        isHls ? (isHlsStop ? "Stopping HLS" : "Stop HLS") : "Start HLS"
+        isHls ? (isHlsStop ? 'Stopping HLS' : 'Stop HLS') : 'Start HLS'
       }
       lottieOption={isHls ? (isHlsStop ? null : defaultOptions) : null}
       disabled={!participantCanToggleHls}
@@ -845,31 +847,31 @@ const WebcamBTN = () => {
   return (
     <Box
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
       ref={tollTipEl}
     >
       <OutlineIconButton
-        btnID={"btnWebcam"}
-        tooltipTitle={localWebcamOn ? "Turn off webcam" : "Turn on webcam"}
+        btnID={'btnWebcam'}
+        tooltipTitle={localWebcamOn ? 'Turn off webcam' : 'Turn on webcam'}
         isFocused={localWebcamOn}
         Icon={localWebcamOn ? VideocamIcon : VideocamOffIcon}
         onClick={toggleWebcam}
-        focusBGColor={"#ffffff33"}
+        focusBGColor={'#ffffff33'}
         focusIconColor={theme.palette.common.white}
         renderRightComponent={() => {
           return (
-            <Tooltip placement="bottom" title={"Change webcam"}>
+            <Tooltip placement="bottom" title={'Change webcam'}>
               <IconButton
                 onClick={(e) => {
                   getWebcams(mMeeting?.getWebcams);
                   handleClick(e);
                 }}
-                size={"small"}
+                size={'small'}
               >
-                <ArrowDropDownIcon fontSize={"small"} />
+                <ArrowDropDownIcon fontSize={'small'} />
               </IconButton>
             </Tooltip>
           );
@@ -878,12 +880,12 @@ const WebcamBTN = () => {
       <Popover
         container={tollTipEl.current}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
+          vertical: 'bottom',
+          horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
+          vertical: 'top',
+          horizontal: 'center',
         }}
         anchorEl={tollTipEl.current}
         open={Boolean(downArrow)}
@@ -940,30 +942,30 @@ const MicBTN = () => {
     <Box
       ref={tollTipEl}
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <OutlineIconButton
-        btnID={"btnMic"}
-        tooltipTitle={localMicOn ? "Turn off mic" : "Turn on mic"}
+        btnID={'btnMic'}
+        tooltipTitle={localMicOn ? 'Turn off mic' : 'Turn on mic'}
         isFocused={localMicOn}
         Icon={localMicOn ? MicIcon : MicOffIcon}
         onClick={toggleMic}
-        focusBGColor={"#ffffff33"}
+        focusBGColor={'#ffffff33'}
         focusIconColor={theme.palette.common.white}
         renderRightComponent={() => {
           return (
-            <Tooltip placement="bottom" title={"Change microphone"}>
+            <Tooltip placement="bottom" title={'Change microphone'}>
               <IconButton
                 onClick={(e) => {
                   getMics(mMeeting.getMics);
                   handleClick(e);
                 }}
-                size={"small"}
+                size={'small'}
               >
-                <ArrowDropDownIcon fontSize={"small"} />
+                <ArrowDropDownIcon fontSize={'small'} />
               </IconButton>
             </Tooltip>
           );
@@ -973,12 +975,12 @@ const MicBTN = () => {
       <Popover
         container={tollTipEl.current}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
+          vertical: 'bottom',
+          horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
+          vertical: 'top',
+          horizontal: 'center',
         }}
         anchorEl={tollTipEl.current}
         open={Boolean(downArrow)}
@@ -1038,20 +1040,20 @@ const EndCallBTN = () => {
     <Box
       ref={tollTipEl}
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <OutlineIconButton
         ref={endCallContainerRef}
         tooltipTitle={
           !participantCanLeave && meetingMode === meetingModes.CONFERENCE
-            ? "End Call"
+            ? 'End Call'
             : participantCanEndMeeting &&
               meetingMode === meetingModes.CONFERENCE
-            ? "Open popup"
-            : "Leave Call"
+            ? 'Open popup'
+            : 'Leave Call'
         }
         bgColor={theme.palette.error.main}
         Icon={EndCall}
@@ -1069,12 +1071,12 @@ const EndCallBTN = () => {
           <Popover
             container={tollTipEl.current}
             anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
+              vertical: 'bottom',
+              horizontal: 'center',
             }}
             transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
+              vertical: 'top',
+              horizontal: 'center',
             }}
             anchorEl={tollTipEl.current}
             open={Boolean(downArrow)}
@@ -1090,13 +1092,13 @@ const EndCallBTN = () => {
                   leave();
                 }}
               >
-                <Box style={{ display: "flex", flexDirection: "row" }}>
+                <Box style={{ display: 'flex', flexDirection: 'row' }}>
                   <Box
                     style={{
                       backgroundColor: theme.palette.common.sidePanel,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       height: 42,
                       width: 42,
                       borderRadius: 4,
@@ -1106,17 +1108,17 @@ const EndCallBTN = () => {
                   </Box>
                   <Box
                     style={{
-                      display: "flex",
+                      display: 'flex',
                       flex: 1,
-                      flexDirection: "column",
+                      flexDirection: 'column',
                       marginLeft: 12,
-                      justifyContent: "center",
+                      justifyContent: 'center',
                     }}
                   >
                     <Typography style={{ fontSize: 14 }}>Leave</Typography>
                     <Typography
-                      color={"textSecondary"}
-                      style={{ fontSize: "0.9rem" }}
+                      color={'textSecondary'}
+                      style={{ fontSize: '0.9rem' }}
                     >
                       Only you will leave the call.
                     </Typography>
@@ -1130,13 +1132,13 @@ const EndCallBTN = () => {
                   setIsEndMeeting(true);
                 }}
               >
-                <Box style={{ display: "flex", flexDirection: "row" }}>
+                <Box style={{ display: 'flex', flexDirection: 'row' }}>
                   <Box
                     style={{
                       backgroundColor: theme.palette.common.sidePanel,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       height: 42,
                       width: 42,
                       borderRadius: 4,
@@ -1146,10 +1148,10 @@ const EndCallBTN = () => {
                   </Box>
                   <Box
                     style={{
-                      display: "flex",
+                      display: 'flex',
                       marginLeft: 12,
-                      flexDirection: "column",
-                      justifyContent: "center",
+                      flexDirection: 'column',
+                      justifyContent: 'center',
                     }}
                   >
                     <Typography style={{ fontSize: 14, lineHeight: 1.5 }}>
@@ -1157,9 +1159,9 @@ const EndCallBTN = () => {
                     </Typography>
                     <Typography
                       style={{
-                        fontSize: "0.9rem",
+                        fontSize: '0.9rem',
                       }}
-                      color={"textSecondary"}
+                      color={'textSecondary'}
                     >
                       End call for all participants.
                     </Typography>
@@ -1171,11 +1173,11 @@ const EndCallBTN = () => {
 
           <ConfirmBox
             open={isEndMeeting}
-            title={"Are you sure to end this call for everyone?"}
-            successText={"End Call"}
+            title={'Are you sure to end this call for everyone?'}
+            successText={'End Call'}
             onSuccess={() => {
               sendChatMessage(
-                JSON.stringify({ buttonType: "END_CALL", data: {} })
+                JSON.stringify({ buttonType: 'END_CALL', data: {} })
               );
               setTimeout(() => {
                 end();
@@ -1236,20 +1238,20 @@ const TopBar = ({ topBarHeight }) => {
 
   const topBarButtonTypes = useMemo(
     () => ({
-      END_CALL: "END_CALL",
-      ACTIVITIES: "ACTIVITIES",
-      CHAT: "CHAT",
-      PARTICIPANTS: "PARTICIPANTS",
-      SCREEN_SHARE: "SCREEN_SHARE",
-      WEBCAM: "WEBCAM",
-      MIC: "MIC",
-      RAISE_HAND: "RAISE_HAND",
-      RECORDING: "RECORDING",
-      HLS: "HLS",
-      WHITEBOARD: "WHITEBOARD",
-      ADD_LIVE_STREAM: "ADD_LIVE_STREAM",
-      CONFIGURATION: "CONFIGURATION",
-      GO_LIVE: "GO_LIVE",
+      END_CALL: 'END_CALL',
+      ACTIVITIES: 'ACTIVITIES',
+      CHAT: 'CHAT',
+      PARTICIPANTS: 'PARTICIPANTS',
+      SCREEN_SHARE: 'SCREEN_SHARE',
+      WEBCAM: 'WEBCAM',
+      MIC: 'MIC',
+      RAISE_HAND: 'RAISE_HAND',
+      RECORDING: 'RECORDING',
+      HLS: 'HLS',
+      WHITEBOARD: 'WHITEBOARD',
+      ADD_LIVE_STREAM: 'ADD_LIVE_STREAM',
+      CONFIGURATION: 'CONFIGURATION',
+      GO_LIVE: 'GO_LIVE',
     }),
     []
   );
@@ -1291,11 +1293,11 @@ const TopBar = ({ topBarHeight }) => {
         });
       }
 
-      arrSideBar.unshift(topBarButtonTypes.ACTIVITIES);
-      mobileIconArr.unshift({
-        buttonType: topBarButtonTypes.ACTIVITIES,
-        // priority: 10,
-      });
+      // arrSideBar.unshift(topBarButtonTypes.ACTIVITIES);
+      // mobileIconArr.unshift({
+      //   buttonType: topBarButtonTypes.ACTIVITIES,
+      //   // priority: 10,
+      // });
 
       arr.unshift(arrSideBar);
 
@@ -1445,9 +1447,9 @@ const TopBar = ({ topBarHeight }) => {
     <Box
       style={{
         height: topBarHeight,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: theme.palette.background.default,
       }}
     >
@@ -1466,9 +1468,9 @@ const TopBar = ({ topBarHeight }) => {
               <ParticipantsBTN />
             ) : icon.buttonType === topBarButtonTypes.CHAT ? (
               <ChatBTN />
-            ) : icon.buttonType === topBarButtonTypes.ACTIVITIES ? (
-              <ActivitiesBTN />
-            ) : icon.buttonType === topBarButtonTypes.END_CALL ? (
+            ) : // ) : icon.buttonType === topBarButtonTypes.ACTIVITIES ? (
+            //   <ActivitiesBTN />
+            icon.buttonType === topBarButtonTypes.END_CALL ? (
               <EndCallBTN />
             ) : icon.buttonType === topBarButtonTypes.RECORDING ? (
               <RecordingBTN />
@@ -1476,9 +1478,9 @@ const TopBar = ({ topBarHeight }) => {
               <HlsBTN />
             ) : icon.buttonType === topBarButtonTypes.GO_LIVE ? (
               <GoLiveBTN />
-            ) : icon.buttonType === topBarButtonTypes.WHITEBOARD ? (
-              <WhiteBoardBTN />
-            ) : icon.buttonType === topBarButtonTypes.ADD_LIVE_STREAM ? (
+            ) : // ) : icon.buttonType === topBarButtonTypes.WHITEBOARD ? (
+            //   <WhiteBoardBTN />
+            icon.buttonType === topBarButtonTypes.ADD_LIVE_STREAM ? (
               <AddLiveStreamBTN />
             ) : icon.buttonType === topBarButtonTypes.CONFIGURATION ? (
               <ConfigBTN />
@@ -1499,11 +1501,11 @@ const TopBar = ({ topBarHeight }) => {
       )}
 
       <SwipeableDrawer
-        anchor={"bottom"}
+        anchor={'bottom'}
         open={Boolean(open)}
         onClose={handleCloseFAB}
         onOpen={handleClickFAB}
-        style={{ paddingBottom: "100px" }}
+        style={{ paddingBottom: '100px' }}
       >
         <Grid container>
           {excludeFirstFourElements.map((icon, i) => {
@@ -1513,9 +1515,9 @@ const TopBar = ({ topBarHeight }) => {
                 xs={4}
                 sm={3}
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 {icon.buttonType === topBarButtonTypes.RAISE_HAND ? (
@@ -1554,13 +1556,13 @@ const TopBar = ({ topBarHeight }) => {
                     isMobile={isMobile}
                     isTab={isTab}
                   />
-                ) : icon.buttonType === topBarButtonTypes.ACTIVITIES ? (
-                  <ActivitiesBTN
-                    onClick={handleCloseFAB}
-                    isMobile={isMobile}
-                    isTab={isTab}
-                  />
-                ) : icon.buttonType === topBarButtonTypes.END_CALL ? (
+                ) : // ) : icon.buttonType === topBarButtonTypes.ACTIVITIES ? (
+                //   <ActivitiesBTN
+                //     onClick={handleCloseFAB}
+                //     isMobile={isMobile}
+                //     isTab={isTab}
+                //   />
+                icon.buttonType === topBarButtonTypes.END_CALL ? (
                   <EndCallBTN
                     onClick={handleCloseFAB}
                     isMobile={isMobile}
@@ -1584,13 +1586,13 @@ const TopBar = ({ topBarHeight }) => {
                     isMobile={isMobile}
                     isTab={isTab}
                   />
-                ) : icon.buttonType === topBarButtonTypes.WHITEBOARD ? (
-                  <WhiteBoardBTN
-                    onClick={handleCloseFAB}
-                    isMobile={isMobile}
-                    isTab={isTab}
-                  />
-                ) : icon.buttonType === topBarButtonTypes.ADD_LIVE_STREAM ? (
+                ) : // ) : icon.buttonType === topBarButtonTypes.WHITEBOARD ? (
+                //   <WhiteBoardBTN
+                //     onClick={handleCloseFAB}
+                //     isMobile={isMobile}
+                //     isTab={isTab}
+                //   />
+                icon.buttonType === topBarButtonTypes.ADD_LIVE_STREAM ? (
                   <AddLiveStreamBTN
                     onClick={handleCloseFAB}
                     isMobile={isMobile}
@@ -1613,32 +1615,32 @@ const TopBar = ({ topBarHeight }) => {
     <Box
       style={{
         height: topBarHeight,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         backgroundColor: theme.palette.background.default,
-        borderBottom: "1px solid #ffffff33",
-        position: "relative",
+        borderBottom: '1px solid #ffffff33',
+        position: 'relative',
         top: topBarVisible ? 0 : -topBarHeight,
         transition: `all ${400 * (animationsEnabled ? 1 : 0.5)}ms`,
-        transitionTimingFunction: "ease-in-out",
+        transitionTimingFunction: 'ease-in-out',
       }}
     >
       <Box
         style={{
-          display: "flex",
+          display: 'flex',
           height: topBarHeight,
           paddingLeft: theme.spacing(2),
-          position: "relative",
-          alignItems: "center",
+          position: 'relative',
+          alignItems: 'center',
         }}
       >
         {brandingEnabled && (
           <>
             <img
-              alt={"App Logo"}
+              alt={'App Logo'}
               style={{
-                display: "inline-block",
+                display: 'inline-block',
                 height: topBarHeight - theme.spacing(2),
               }}
               src={
@@ -1654,16 +1656,16 @@ const TopBar = ({ topBarHeight }) => {
             />
             <Box
               style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
               }}
               ml={1}
             >
               <Typography
                 style={{
-                  fontSize: "1.2rem",
-                  fontWeight: "600",
+                  fontSize: '1.2rem',
+                  fontWeight: '600',
                 }}
               >
                 {brandName}
@@ -1671,24 +1673,24 @@ const TopBar = ({ topBarHeight }) => {
               {poweredBy ? (
                 <Typography
                   style={{
-                    fontSize: "0.9rem",
-                    wordBreak: "break-all",
-                    display: "flex",
-                    alignItems: "center",
+                    fontSize: '0.9rem',
+                    wordBreak: 'break-all',
+                    display: 'flex',
+                    alignItems: 'center',
                   }}
-                  color={"textSecondary"}
+                  color={'textSecondary'}
                 >
                   Powered by&nbsp;
                   <Link
-                    style={{ textDecorationColor: "#fa3a57" }}
-                    target={"_blank"}
-                    href={"https://videosdk.live"}
+                    style={{ textDecorationColor: '#fa3a57' }}
+                    target={'_blank'}
+                    href={'https://videosdk.live'}
                   >
                     <Typography
                       style={{
-                        color: "#fa3a57",
-                        textTransform: "lowercase",
-                        fontSize: "0.9rem",
+                        color: '#fa3a57',
+                        textTransform: 'lowercase',
+                        fontSize: '0.9rem',
                       }}
                     >
                       videosdk.live
@@ -1708,7 +1710,7 @@ const TopBar = ({ topBarHeight }) => {
               {i !== 0 && (
                 <Box
                   style={{
-                    backgroundColor: "#ffffff33",
+                    backgroundColor: '#ffffff33',
                     width: 1,
                     height: topBarHeight - theme.spacing(1.5),
                     flex: 1,
@@ -1735,9 +1737,9 @@ const TopBar = ({ topBarHeight }) => {
                         <ParticipantsBTN />
                       ) : buttonType === topBarButtonTypes.CHAT ? (
                         <ChatBTN />
-                      ) : buttonType === topBarButtonTypes.ACTIVITIES ? (
-                        <ActivitiesBTN />
-                      ) : buttonType === topBarButtonTypes.END_CALL ? (
+                      ) : // ) : buttonType === topBarButtonTypes.ACTIVITIES ? (
+                      //   <ActivitiesBTN />
+                      buttonType === topBarButtonTypes.END_CALL ? (
                         <EndCallBTN />
                       ) : buttonType === topBarButtonTypes.RECORDING ? (
                         <RecordingBTN />
@@ -1745,9 +1747,9 @@ const TopBar = ({ topBarHeight }) => {
                         <HlsBTN />
                       ) : buttonType === topBarButtonTypes.GO_LIVE ? (
                         <GoLiveBTN />
-                      ) : buttonType === topBarButtonTypes.WHITEBOARD ? (
-                        <WhiteBoardBTN />
-                      ) : buttonType === topBarButtonTypes.ADD_LIVE_STREAM ? (
+                      ) : // ) : buttonType === topBarButtonTypes.WHITEBOARD ? (
+                      //   <WhiteBoardBTN />
+                      buttonType === topBarButtonTypes.ADD_LIVE_STREAM ? (
                         <AddLiveStreamBTN />
                       ) : buttonType === topBarButtonTypes.CONFIGURATION ? (
                         <ConfigBTN />

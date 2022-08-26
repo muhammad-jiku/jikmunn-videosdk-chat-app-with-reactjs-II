@@ -1,10 +1,10 @@
-import { Box, Button, Link, Typography } from "@material-ui/core";
-import React from "react";
-import Lottie from "react-lottie";
-import animationData from "../animations/meeting-left.json";
-import useIsLGDesktop from "../utils/useIsLGDesktop";
-import useIsSMDesktop from "../utils/useIsSMDesktop";
-import useResponsiveSize from "../utils/useResponsiveSize";
+import { Box, Button, Link, Typography } from '@material-ui/core';
+import React from 'react';
+import Lottie from 'react-lottie';
+import animationData from '../animations/meeting-left.json';
+import useIsLGDesktop from '../utils/useIsLGDesktop';
+import useIsSMDesktop from '../utils/useIsSMDesktop';
+import useResponsiveSize from '../utils/useResponsiveSize';
 
 const StarsBG = (props) => {
   return (
@@ -43,7 +43,7 @@ const MeetingLeftScreen = ({
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
   };
 
@@ -61,66 +61,88 @@ const MeetingLeftScreen = ({
   return (
     <div
       style={{
-        height: "100vh",
-        width: "100vw",
-        position: "relative",
-        overflow: "hidden",
+        height: '100vh',
+        width: '100vw',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
       <div
-        style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
       >
-        <StarsBG height={"100%"} width={"100%"} />
+        <StarsBG height={'100%'} width={'100%'} />
       </div>
 
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
         }}
       >
         <div style={{ width: jsonSize }}>
           <Lottie
             options={defaultOptions}
-            eventListeners={[{ eventName: "done" }]}
+            eventListeners={[{ eventName: 'done' }]}
             width={jsonSize}
             isClickToPauseDisabled
           />
         </div>
         <Box mt={6}>
-          <Typography variant={"h4"} style={{ fontWeight: "bold" }}>
+          <Typography variant={'h4'} style={{ fontWeight: 'bold' }}>
             You have left the meeting!
           </Typography>
         </Box>
         <Box
           mt={3}
           style={{
-            display: "flex",
-            flexDirection: isSMDesktop || isLGDesktop ? "row" : "column",
-            justifyContent: "center",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: isSMDesktop || isLGDesktop ? 'row' : 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           {leftScreenRejoinButtonEnabled && (
-            <Button
-              onClick={() => {
-                setMeetingLeft(false);
-              }}
-              size={isSMDesktop || isLGDesktop ? "large" : "medium"}
-              variant="contained"
-              color={"primary"}
-              style={{ textTransform: "capitalize", fontWeight: "bold" }}
-            >
-              Rejoin Meeting
-            </Button>
+            <>
+              {' '}
+              <Button
+                onClick={() => {
+                  setMeetingLeft(false);
+                }}
+                size={isSMDesktop || isLGDesktop ? 'large' : 'medium'}
+                variant="contained"
+                color={'primary'}
+                style={{ textTransform: 'capitalize', fontWeight: 'bold' }}
+              >
+                Rejoin Meeting
+              </Button>
+              <a
+                href="https://breeze-time.netlify.app/"
+                // target="_blank"
+                // rel="noreferrer"
+                style={{ textDecoration: 'none' }}
+              >
+                <Button
+                  size={isSMDesktop || isLGDesktop ? 'large' : 'medium'}
+                  variant="contained"
+                  color={'secondary'}
+                  style={{
+                    marginLeft: '10px',
+                    textTransform: 'capitalize',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Go To Home
+                </Button>
+              </a>
+            </>
           )}
           {leftScreenActionButtonLabel &&
-          leftScreenActionButtonLabel !== "undefined" &&
+          leftScreenActionButtonLabel !== 'undefined' &&
           leftScreenActionButtonHref &&
-          leftScreenActionButtonHref !== "undefined" ? (
+          leftScreenActionButtonHref !== 'undefined' ? (
             <Box
               mt={
                 leftScreenRejoinButtonEnabled
@@ -137,11 +159,11 @@ const MeetingLeftScreen = ({
                   : 0
               }
             >
-              <Link target={"_top"} href={leftScreenActionButtonHref}>
+              <Link target={'_top'} href={leftScreenActionButtonHref}>
                 <Button
-                  size={isSMDesktop || isLGDesktop ? "large" : "medium"}
+                  size={isSMDesktop || isLGDesktop ? 'large' : 'medium'}
                   variant="outlined"
-                  style={{ fontWeight: "bold" }}
+                  style={{ fontWeight: 'bold' }}
                 >
                   {leftScreenActionButtonLabel}
                 </Button>

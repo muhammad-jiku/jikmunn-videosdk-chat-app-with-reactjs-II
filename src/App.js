@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import BoxApp from './BoxApp';
+import SubApp from './SubApp';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
           element={<BoxApp />}
         /> */}
       {/* </Routes> */}
-      <BoxApp />
+      <SubApp />
     </div>
   );
 }
