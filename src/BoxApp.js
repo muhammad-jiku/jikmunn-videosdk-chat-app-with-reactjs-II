@@ -315,7 +315,7 @@ const BoxApp = () => {
         paramKeys.layoutPriority = paramKeys.layoutPriority.toUpperCase();
         break;
       default:
-        paramKeys.layoutPriority = meetingLayoutPriorities.SPEAKER;
+        paramKeys.layoutPriority = meetingLayoutPriorities.PIN;
         break;
     }
 
