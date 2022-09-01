@@ -13,6 +13,7 @@
     "compressorjs": "^1.1.1",
     "emoji-mart": "^3.0.1",
     "fabric": "^4.6.0",
+    "firebase": "^9.9.3",
     "hls.js": "^1.1.5",
     "notistack": "^1.0.10",
     "react": "^18.2.0",
