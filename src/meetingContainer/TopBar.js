@@ -25,7 +25,7 @@ import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import LiveIcon from '../icons/LiveIcon';
 import RaiseHand from '../icons/RaiseHand';
 import {
-  Activities,
+  // Activities,
   Chat,
   EndCall,
   Participants,
@@ -200,87 +200,90 @@ const ChatBTN = ({ isMobile, isTab }) => {
     />
   );
 };
-const ActivitiesBTN = ({ onClick, isMobile, isTab }) => {
-  const { sideBarMode, setSideBarMode, setSideBarNestedMode } =
-    useMeetingAppContext();
 
-  return isMobile || isTab ? (
-    <MobileIconButton
-      Icon={Activities}
-      tooltipTitle={'Activities'}
-      buttonText={'Activities'}
-      isFocused={sideBarMode === sideBarModes.ACTIVITIES}
-      onClick={() => {
-        typeof onClick === 'function' && onClick();
+// const ActivitiesBTN = ({ onClick, isMobile, isTab }) => {
+//   const { sideBarMode, setSideBarMode, setSideBarNestedMode } =
+//     useMeetingAppContext();
 
-        setSideBarMode((s) =>
-          s === sideBarModes.ACTIVITIES ? null : sideBarModes.ACTIVITIES
-        );
+//   return isMobile || isTab ? (
+//     <MobileIconButton
+//       Icon={Activities}
+//       tooltipTitle={'Activities'}
+//       buttonText={'Activities'}
+//       isFocused={sideBarMode === sideBarModes.ACTIVITIES}
+//       onClick={() => {
+//         typeof onClick === 'function' && onClick();
 
-        setSideBarNestedMode(null);
-      }}
-    />
-  ) : (
-    <OutlineIconButton
-      tooltipTitle={'Activities'}
-      Icon={Activities}
-      isFocused={sideBarMode === sideBarModes.ACTIVITIES}
-      onClick={() => {
-        typeof onClick === 'function' && onClick();
+//         setSideBarMode((s) =>
+//           s === sideBarModes.ACTIVITIES ? null : sideBarModes.ACTIVITIES
+//         );
 
-        setSideBarMode((s) =>
-          s === sideBarModes.ACTIVITIES ? null : sideBarModes.ACTIVITIES
-        );
+//         setSideBarNestedMode(null);
+//       }}
+//     />
+//   ) : (
+//     <OutlineIconButton
+//       tooltipTitle={'Activities'}
+//       Icon={Activities}
+//       isFocused={sideBarMode === sideBarModes.ACTIVITIES}
+//       onClick={() => {
+//         typeof onClick === 'function' && onClick();
 
-        setSideBarNestedMode(null);
-      }}
-    />
-  );
-};
-const WhiteBoardBTN = ({ onClick, isMobile, isTab }) => {
-  const { whiteboardStarted, whiteboardEnabled, canToggleWhiteboard } =
-    useMeetingAppContext();
+//         setSideBarMode((s) =>
+//           s === sideBarModes.ACTIVITIES ? null : sideBarModes.ACTIVITIES
+//         );
 
-  const mMeeting = useMeeting({});
+//         setSideBarNestedMode(null);
+//       }}
+//     />
+//   );
+// };
 
-  const presenterId = mMeeting?.presenterId;
+// const WhiteBoardBTN = ({ onClick, isMobile, isTab }) => {
+//   const { whiteboardStarted, whiteboardEnabled, canToggleWhiteboard } =
+//     useMeetingAppContext();
 
-  return (
-    <>
-      {whiteboardEnabled &&
-        (isMobile || isTab ? (
-          <MobileIconButton
-            disabled={presenterId || !canToggleWhiteboard}
-            tooltipTitle={'Whiteboard'}
-            buttonText={'Whiteboard'}
-            Icon={Gesture}
-            isFocused={whiteboardStarted}
-            onClick={() => {
-              typeof onClick === 'function' && onClick();
+//   const mMeeting = useMeeting({});
 
-              whiteboardStarted
-                ? mMeeting.meeting.stopWhiteboard()
-                : mMeeting.meeting.startWhiteboard();
-            }}
-          />
-        ) : (
-          <OutlineIconButton
-            disabled={presenterId || !canToggleWhiteboard}
-            tooltipTitle={'Whiteboard'}
-            Icon={Gesture}
-            isFocused={whiteboardStarted}
-            onClick={() => {
-              typeof onClick === 'function' && onClick();
+//   const presenterId = mMeeting?.presenterId;
 
-              whiteboardStarted
-                ? mMeeting.meeting.stopWhiteboard()
-                : mMeeting.meeting.startWhiteboard();
-            }}
-          />
-        ))}
-    </>
-  );
-};
+//   return (
+//     <>
+//       {whiteboardEnabled &&
+//         (isMobile || isTab ? (
+//           <MobileIconButton
+//             disabled={presenterId || !canToggleWhiteboard}
+//             tooltipTitle={'Whiteboard'}
+//             buttonText={'Whiteboard'}
+//             Icon={Gesture}
+//             isFocused={whiteboardStarted}
+//             onClick={() => {
+//               typeof onClick === 'function' && onClick();
+
+//               whiteboardStarted
+//                 ? mMeeting.meeting.stopWhiteboard()
+//                 : mMeeting.meeting.startWhiteboard();
+//             }}
+//           />
+//         ) : (
+//           <OutlineIconButton
+//             disabled={presenterId || !canToggleWhiteboard}
+//             tooltipTitle={'Whiteboard'}
+//             Icon={Gesture}
+//             isFocused={whiteboardStarted}
+//             onClick={() => {
+//               typeof onClick === 'function' && onClick();
+
+//               whiteboardStarted
+//                 ? mMeeting.meeting.stopWhiteboard()
+//                 : mMeeting.meeting.startWhiteboard();
+//             }}
+//           />
+//         ))}
+//     </>
+//   );
+// };
+
 const ScreenShareBTN = ({ onClick, isMobile, isTab }) => {
   const mMeeting = useMeeting({});
   const { whiteboardStarted } = useMeetingAppContext();
@@ -1468,9 +1471,9 @@ const TopBar = ({ topBarHeight }) => {
               <ParticipantsBTN />
             ) : icon.buttonType === topBarButtonTypes.CHAT ? (
               <ChatBTN />
-            ) : icon.buttonType === topBarButtonTypes.ACTIVITIES ? (
-              <ActivitiesBTN />
-            ) : icon.buttonType === topBarButtonTypes.END_CALL ? (
+            ) : // ) : icon.buttonType === topBarButtonTypes.ACTIVITIES ? (
+            //   <ActivitiesBTN />
+            icon.buttonType === topBarButtonTypes.END_CALL ? (
               <EndCallBTN />
             ) : icon.buttonType === topBarButtonTypes.RECORDING ? (
               <RecordingBTN />
@@ -1478,9 +1481,9 @@ const TopBar = ({ topBarHeight }) => {
               <HlsBTN />
             ) : icon.buttonType === topBarButtonTypes.GO_LIVE ? (
               <GoLiveBTN />
-            ) : icon.buttonType === topBarButtonTypes.WHITEBOARD ? (
-              <WhiteBoardBTN />
-            ) : icon.buttonType === topBarButtonTypes.ADD_LIVE_STREAM ? (
+            ) : // ) : icon.buttonType === topBarButtonTypes.WHITEBOARD ? (
+            //   <WhiteBoardBTN />
+            icon.buttonType === topBarButtonTypes.ADD_LIVE_STREAM ? (
               <AddLiveStreamBTN />
             ) : icon.buttonType === topBarButtonTypes.CONFIGURATION ? (
               <ConfigBTN />
@@ -1556,13 +1559,13 @@ const TopBar = ({ topBarHeight }) => {
                     isMobile={isMobile}
                     isTab={isTab}
                   />
-                ) : icon.buttonType === topBarButtonTypes.ACTIVITIES ? (
-                  <ActivitiesBTN
-                    onClick={handleCloseFAB}
-                    isMobile={isMobile}
-                    isTab={isTab}
-                  />
-                ) : icon.buttonType === topBarButtonTypes.END_CALL ? (
+                ) : // ) : icon.buttonType === topBarButtonTypes.ACTIVITIES ? (
+                //   <ActivitiesBTN
+                //     onClick={handleCloseFAB}
+                //     isMobile={isMobile}
+                //     isTab={isTab}
+                //   />
+                icon.buttonType === topBarButtonTypes.END_CALL ? (
                   <EndCallBTN
                     onClick={handleCloseFAB}
                     isMobile={isMobile}
@@ -1586,13 +1589,13 @@ const TopBar = ({ topBarHeight }) => {
                     isMobile={isMobile}
                     isTab={isTab}
                   />
-                ) : icon.buttonType === topBarButtonTypes.WHITEBOARD ? (
-                  <WhiteBoardBTN
-                    onClick={handleCloseFAB}
-                    isMobile={isMobile}
-                    isTab={isTab}
-                  />
-                ) : icon.buttonType === topBarButtonTypes.ADD_LIVE_STREAM ? (
+                ) : // ) : icon.buttonType === topBarButtonTypes.WHITEBOARD ? (
+                //   <WhiteBoardBTN
+                //     onClick={handleCloseFAB}
+                //     isMobile={isMobile}
+                //     isTab={isTab}
+                //   />
+                icon.buttonType === topBarButtonTypes.ADD_LIVE_STREAM ? (
                   <AddLiveStreamBTN
                     onClick={handleCloseFAB}
                     isMobile={isMobile}
@@ -1737,9 +1740,9 @@ const TopBar = ({ topBarHeight }) => {
                         <ParticipantsBTN />
                       ) : buttonType === topBarButtonTypes.CHAT ? (
                         <ChatBTN />
-                      ) : buttonType === topBarButtonTypes.ACTIVITIES ? (
-                        <ActivitiesBTN />
-                      ) : buttonType === topBarButtonTypes.END_CALL ? (
+                      ) : // ) : buttonType === topBarButtonTypes.ACTIVITIES ? (
+                      //   <ActivitiesBTN />
+                      buttonType === topBarButtonTypes.END_CALL ? (
                         <EndCallBTN />
                       ) : buttonType === topBarButtonTypes.RECORDING ? (
                         <RecordingBTN />
@@ -1747,9 +1750,9 @@ const TopBar = ({ topBarHeight }) => {
                         <HlsBTN />
                       ) : buttonType === topBarButtonTypes.GO_LIVE ? (
                         <GoLiveBTN />
-                      ) : buttonType === topBarButtonTypes.WHITEBOARD ? (
-                        <WhiteBoardBTN />
-                      ) : buttonType === topBarButtonTypes.ADD_LIVE_STREAM ? (
+                      ) : // ) : buttonType === topBarButtonTypes.WHITEBOARD ? (
+                      //   <WhiteBoardBTN />
+                      buttonType === topBarButtonTypes.ADD_LIVE_STREAM ? (
                         <AddLiveStreamBTN />
                       ) : buttonType === topBarButtonTypes.CONFIGURATION ? (
                         <ConfigBTN />
